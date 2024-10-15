@@ -10,11 +10,16 @@ class LoginPage extends StatelessWidget {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  //on Button Click
+  //on Button Tap
   void signUserIn() {
-    log('userName: ${userNameController.text}');
-    log('password: ${passwordController.text}');
-    log('${userNameController.text}.${passwordController.text}');
+    if (userNameController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty) {
+      log('userName: ${userNameController.text}');
+      log('password: ${passwordController.text}');
+      log('${userNameController.text}.${passwordController.text}');
+    } else {
+      log('fill in the required inputs');
+    }
   }
 
   @override
@@ -64,6 +69,21 @@ class LoginPage extends StatelessWidget {
                 onTap: signUserIn,
               ),
               const SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.all(25),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (userNameController.text == 'admin' &&
+                        passwordController.text == 'root') {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, '/homePage');
+                    } else {
+                      log('wrong username or password');
+                    }
+                  },
+                  child: const Text('Click Me'),
+                ),
+              ),
             ],
           ),
         ),
